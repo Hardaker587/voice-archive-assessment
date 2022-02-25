@@ -6,9 +6,9 @@ type layoutPropsInterface = {
 
 export default function Layout({ children }: layoutPropsInterface) {
   return (
-    <>
+    <div data-theme={'bumblebee'}>
       <Header />
       <main className="bg-yellow-200">{children}</main>
-    </>
+    </div>
   );
 }

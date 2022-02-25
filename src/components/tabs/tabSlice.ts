@@ -10,38 +10,43 @@ import { beersEnum } from "../../enums/beers.enum";
 export interface Drink {
   beer: beersEnum;
   quantity: number;
+  total: number;
 }
 export interface Order {
-  drink: Drink;
+  drink: Array<Drink>;
   table: number;
   guests: number;
   splitBill: boolean;
+  total: number;
 }
 
-const initialState: Array<Order> = [];
+export interface State {
+  Tabs: Array<Order>;
+}
+
+const initialState: State = {
+  Tabs: [],
+};
 
 export const tabSlice = createSlice({
   name: "tab",
   initialState,
   reducers: {
     newOrder: (state, action: PayloadAction<Order>) => {
-      const tableOccupied = state.some(
+      console.log(action);
+      const tableOccupied = state.Tabs.some(
         (order) => order.table === action.payload.table
       );
-      const filterOutOrder = state.filter(
+      const filterOutOrder = state.Tabs.filter(
         (order) => order.table !== action.payload.table
       );
-
-      state = [...filterOutOrder, action.payload];
+      state.Tabs = [...filterOutOrder, action.payload];
     },
   },
 });
 
-export const { newOrder } = tabSlice.actions
+export const { newOrder } = tabSlice.actions;
 
-export const tabs = (state: AppState) => state
+export const tabs = (state: AppState) => state.tab;
 
-export default tabSlice.reducer
-
-
-
+export default tabSlice.reducer;
