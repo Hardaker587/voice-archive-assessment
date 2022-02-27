@@ -1,12 +1,17 @@
 import { Order } from "./tabSlice";
 import { beersEnum } from "../../enums/beers.enum";
+import { useRouter } from "next/router";
 
 export function Tab(props: Order) {
+  const router = useRouter();
   function getDrink(selectedBeer: beersEnum) {
     return props.drink.find((beer) => beer.beer == selectedBeer);
   }
   return (
-    <div className="p-4">
+    <div
+      className="p-4"
+      onClick={() => router.push(`/tabs/edit/?tabId=${props.id}`)}
+    >
       <div className="border border-gray-200 p-6 rounded-lg bg-white">
         <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
           Table: {props.table}

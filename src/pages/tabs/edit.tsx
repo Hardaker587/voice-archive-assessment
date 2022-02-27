@@ -2,27 +2,39 @@ import { NextPage } from "next";
 import { FormEvent, useState } from "react";
 import Image from "next/image";
 import { beerPriceEnum, beersEnum } from "../../enums/beers.enum";
-import { newOrder } from "../../components/tabs/tabSlice";
-import { useAppDispatch } from "../../app/hooks";
+import { Drink, newOrder, tabs } from "../../components/tabs/tabSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouter } from "next/router";
 import { uuid } from "../../utilities/uuid";
-const AddTab: NextPage = () => {
+const EditTab: NextPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  let [order, setOrder] = useState({
-    id: uuid(),
-    table: 0,
-    guests: 1,
-    drink: [
-      { beer: beersEnum.WEISSBIER, quantity: 0, total: 0, writable: true },
-      { beer: beersEnum.IPA, quantity: 0, total: 0, writable: true },
-      { beer: beersEnum.LAGER, quantity: 0, total: 0, writable: true },
-    ],
-    splitBill: false,
-    total: 0,
-    writable: true,
-  });
+  const tabId = router.query.tabId;
+
+  const currentTab = useAppSelector(tabs).Tabs.find((tab) => tab.id === tabId);
+
+  let [order, setOrder] = useState(
+    !!currentTab
+      ? { ...currentTab }
+      : {
+          id: uuid(),
+          table: 0,
+          guests: 1,
+          drink: [
+            {
+              beer: beersEnum.WEISSBIER,
+              quantity: 0,
+              total: 0,
+              writable: true,
+            },
+            { beer: beersEnum.IPA, quantity: 0, total: 0, writable: true },
+            { beer: beersEnum.LAGER, quantity: 0, total: 0, writable: true },
+          ],
+          splitBill: false,
+          total: 0,
+        }
+  );
   function updateTable(event: FormEvent) {
     const eventValue = event.target as HTMLTextAreaElement;
     setOrder({ ...order, table: Number(eventValue.value) });
@@ -34,7 +46,7 @@ const AddTab: NextPage = () => {
   function updateDrink(event: FormEvent, selectedBeer: beersEnum) {
     const eventValue = event.target as HTMLTextAreaElement;
     const beer = order.drink.find((beer) => beer.beer === selectedBeer);
-    const updatedBeer = { ...beer, quantity: Number(eventValue.value)}
+    const updatedBeer = { ...beer, quantity: Number(eventValue.value) };
     updatedBeer.total =
       Number(eventValue.value) *
       Number(beerPriceEnum[selectedBeer.toUpperCase()]);
@@ -74,7 +86,8 @@ const AddTab: NextPage = () => {
               <input
                 name={"table"}
                 type="number"
-                placeholder="0"
+                placeholder="1"
+                min={1}
                 className="input input-bordered w-full max-w-xs"
                 value={order.table}
                 onInput={(event) => updateTable(event)}
@@ -160,11 +173,11 @@ const AddTab: NextPage = () => {
           </div>
         </div>
         <button className="btn" onClick={submitOrder}>
-          Add Tab
+          Submit
         </button>
       </div>
     </>
   );
 };
 
-export default AddTab;
+export default EditTab;

@@ -13,11 +13,13 @@ export interface Drink {
   total: number;
 }
 export interface Order {
+  id: string,
   drink: Array<Drink>;
   table: number;
   guests: number;
   splitBill: boolean;
   total: number;
+  writable?: boolean;
 }
 
 export interface State {
@@ -33,12 +35,8 @@ export const tabSlice = createSlice({
   initialState,
   reducers: {
     newOrder: (state, action: PayloadAction<Order>) => {
-      console.log(action);
-      const tableOccupied = state.Tabs.some(
-        (order) => order.table === action.payload.table
-      );
       const filterOutOrder = state.Tabs.filter(
-        (order) => order.table !== action.payload.table
+        (order) => order.id !== action.payload.id
       );
       state.Tabs = [...filterOutOrder, action.payload];
     },
