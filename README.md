@@ -1,23 +1,40 @@
-# Redux Toolkit TypeScript Example
+# Bar Tab :beers:
+Test assignment for frontend developer job position.
 
-This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
-
-The **Redux Toolkit** is a standardized way to write Redux logic (create actions and reducers, setup the store with some default middlewares like redux devtools extension). This example demonstrates each of these features with Next.js
-
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-redux&project-name=with-redux&repository-name=with-redux)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+# Running the assignment
 
 ```bash
-npx create-next-app --example with-redux with-redux-app
-# or
-yarn create next-app --example with-redux with-redux-app
+yarn install
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+```bash
+yarn run dev
+```
+
+# Assignment
+Build a _open bar tap_ web app in your preferred frontend framework. React is recommended but any framework is allowed. The web app should be as slim as possible, but cover the following:
+
+1. As a user I want a view that lists 3 different kinds of beers
+2. As a user I should be be able to enter how many of each type of beer I want for a "round of drinks"
+4. As a user I should be able to submit/add the specificed order or beers to my open tab
+5. As a user I want to, optionally, enter how many people will split the total bill
+6. As a user I want to, at any time, be able to request the total of my bill - including a price per. person, if applicable
+
+### Beers on tap
+
+| Beer | Price |
+|--|--|
+| Lager | DKK 45.00 |
+| IPA | DKK 52.00 |
+| Weissbier | DKK 59.00 |
+
+
+# Requirements
+1. You can use any framework/tool within the Javascript domain that you like, or write it in pure Javscript/CSS/HTML.
+2. It is **not** required to add a persistence layer. However, it is allowed.
+3. You must display you ability to write reusable code and components.
+4. It should be clear, in a README file, how to run the application.
+
+# How to submit?
+
+Create a private Github repository, on your profile, with your code, as well as instructions on how to run your web app in the `README.md`. Share the repository with [@mathiasjakobsen](https://github.com/mathiasjakobsen), by adding him as collaborator on your repository.
