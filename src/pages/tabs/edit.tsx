@@ -133,6 +133,11 @@ const EditTab: NextPage = () => {
                     value={getDrink(beersEnum.WEISSBIER).quantity}
                     onInput={(event) => updateDrink(event, beersEnum.WEISSBIER)}
                   />
+                  <label className="label">
+                    <span className="label-text capitalize font-bold">
+                      total: DKK{getDrink(beersEnum.WEISSBIER).total}
+                    </span>
+                  </label>
                 </div>{" "}
                 <div className="form-control w-full max-w-xs">
                   <label className="label" htmlFor={beersEnum.LAGER}>
@@ -148,6 +153,11 @@ const EditTab: NextPage = () => {
                     value={getDrink(beersEnum.LAGER).quantity}
                     onInput={(event) => updateDrink(event, beersEnum.LAGER)}
                   />
+                  <label className="label">
+                    <span className="label-text capitalize font-bold">
+                      total: DKK{getDrink(beersEnum.LAGER).total}
+                    </span>
+                  </label>
                 </div>{" "}
                 <div className="form-control w-full max-w-xs">
                   <label className="label" htmlFor={beersEnum.IPA}>
@@ -163,6 +173,11 @@ const EditTab: NextPage = () => {
                     value={getDrink(beersEnum.IPA).quantity}
                     onInput={(event) => updateDrink(event, beersEnum.IPA)}
                   />
+                  <label className="label">
+                    <span className="label-text capitalize font-bold">
+                      total: DKK{getDrink(beersEnum.IPA).total}
+                    </span>
+                  </label>
                 </div>{" "}
               </div>
             </div>
@@ -177,8 +192,22 @@ const EditTab: NextPage = () => {
                 />
               </label>
             </div>
-            <hr className={"mr-4"} />
-            <div className="text-black">Total bill: {order.total}</div>
+            <hr className="my-4" />
+            <div className="text-black flex justify-between text-base">
+              <div>Total:</div>
+              <div className="font-black">DKK {order.total.toFixed(2)}</div>
+            </div>
+            {order.splitBill && (
+              <>
+                <hr className="my-4" />
+                <div className="text-black flex justify-between text-base">
+                  <div>Total per guest:</div>
+                  <div className="font-black">
+                    DKK {(order.total / order.guests).toFixed(2)}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <button className="btn" onClick={submitOrder}>

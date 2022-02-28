@@ -13,7 +13,7 @@ export interface Drink {
   total: number;
 }
 export interface Order {
-  id: string,
+  id: string;
   drink: Array<Drink>;
   table: number;
   guests: number;
@@ -40,10 +40,16 @@ export const tabSlice = createSlice({
       );
       state.Tabs = [...filterOutOrder, action.payload];
     },
+    removeTab: (state, action: PayloadAction<string>) => {
+      const filterOutOrder = state.Tabs.filter(
+        (order) => order.id !== action.payload
+      );
+      state.Tabs = [...filterOutOrder];
+    },
   },
 });
 
-export const { newOrder } = tabSlice.actions;
+export const { newOrder, removeTab } = tabSlice.actions;
 
 export const tabs = (state: AppState) => state.tab;
 
