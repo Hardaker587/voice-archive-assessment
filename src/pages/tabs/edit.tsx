@@ -53,7 +53,14 @@ const EditTab: NextPage = () => {
     const newDrinksOrder = order.drink.filter(
       (drinks) => drinks.beer !== selectedBeer
     );
-    setOrder({ ...order, drink: [...newDrinksOrder, updatedBeer] });
+    const totals = newDrinksOrder.map((drink) => drink.total);
+    totals.push(updatedBeer.total);
+    const billTotal = totals.reduce((a, b) => a + b);
+    setOrder({
+      ...order,
+      drink: [...newDrinksOrder, updatedBeer],
+      total: billTotal,
+    });
   }
   function getDrink(selectedBeer: beersEnum) {
     return order.drink.find((beer) => beer.beer == selectedBeer);
@@ -170,6 +177,8 @@ const EditTab: NextPage = () => {
                 />
               </label>
             </div>
+            <hr className={"mr-4"} />
+            <div className="text-black">Total bill: {order.total}</div>
           </div>
         </div>
         <button className="btn" onClick={submitOrder}>
